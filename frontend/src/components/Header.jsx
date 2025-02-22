@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { assets } from "../assets/assets";
 import { AppContent } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
+import Dashboard from "./DashBord";
 
 const Header = () => {
   const navigate = useNavigate()
@@ -22,13 +23,27 @@ const Header = () => {
         />
       </h1>
       <img src={assets.welcome} alt="" className="w-36 h-36 m-[-50px] p-0" />
-      <p className="mb-4 max-w-md">
-        lets start with a quick product tour and we will have you running in
-        minutes
-      </p>
-      <button onClick={() => navigate ('/login') } className="border border-gray-500 px-4 py-2 rounded-full hover:bg-gray-100 transition-all">
-        Get Started
-      </button>
+      {userData ? (
+        <p className="mb-4 max-w-md">
+          Welcome back {userData.name} , lets get you started
+        </p>
+      ) : (
+        <p className="mb-4 max-w-md">
+          lets start with a quick product tour and we will have you running in
+          minutes
+        </p>
+      )}
+     
+      {userData ? (
+        <Dashboard />
+      ) : (
+        <button
+          onClick={() => navigate("/login")}
+          className="border border-gray-500 px-4 py-2 rounded-full hover:bg-gray-100 transition-all"
+        >
+          Get Started
+        </button>
+      )}
     </div>
   );
 };
